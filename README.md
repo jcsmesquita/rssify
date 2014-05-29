@@ -8,7 +8,7 @@ An RSS feed aggregator based on AngularJS and ngBoilerplate
 Install Node.js and then:
 
 ```sh
-$ git clone git://github.com/joshdmiller/ng-boilerplate
+$ git clone git://github.com/jcsmesquita/rssify
 $ cd ng-boilerplate
 $ sudo npm -g install grunt-cli karma bower
 $ npm install
