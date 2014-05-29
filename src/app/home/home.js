@@ -39,25 +39,25 @@ angular.module( 'rssify.home', [
 /**
  * And of course we define a controller for our route.
  */
-.controller( 'HomeCtrl', function HomeController( $scope, $http ) {
+.controller( 'HomeCtrl', function HomeController( $scope, $http, $document ) {
 
   $scope.data = {
     "groupSize": 2,
     "rssFeed": null,
     "items": [
-      // {"imgSrc": ['http://placehold.it/350x150/69D2E7/ffffff']},
-      // {"imgSrc": ['http://placehold.it/472x500/F38630/ffffff']},
-      // {"imgSrc": ['http://placehold.it/540x360/FA6900/ffffff']},
-      // {"imgSrc": ["http://placehold.it/350x150/69D2E7/ffffff"]},
-      // {"imgSrc": ["http://placehold.it/320x180/A7DBD8/ffffff"]},
-      // {"imgSrc": ["http://placehold.it/320x300/E0E4CC/ffffff"]},
-      // {"imgSrc": ["http://placehold.it/472x500/F38630/ffffff"]},
-      // {"imgSrc": ["http://placehold.it/540x360/FA6900/ffffff"]},
-      // {"imgSrc": ["http://placehold.it/800x600/ECD078/ffffff"]},
-      // {"imgSrc": ["http://placehold.it/400x120/D95B43/ffffff"]},
-      // {"imgSrc": ["http://placehold.it/300x300/C02942/ffffff"]},
-      // {"imgSrc": ["http://placehold.it/320x500/542437/ffffff"]},
-      // {"imgSrc": ["http://placehold.it/450x300/53777A/ffffff"]}
+      {"imgSrc": ['http://placehold.it/350x150/69D2E7/ffffff']},
+      {"imgSrc": ['http://placehold.it/472x500/F38630/ffffff']},
+      {"imgSrc": ['http://placehold.it/540x360/FA6900/ffffff']},
+      {"imgSrc": ["http://placehold.it/350x150/69D2E7/ffffff"]},
+      {"imgSrc": ["http://placehold.it/320x180/A7DBD8/ffffff"]},
+      {"imgSrc": ["http://placehold.it/320x300/E0E4CC/ffffff"]},
+      {"imgSrc": ["http://placehold.it/472x500/F38630/ffffff"]},
+      {"imgSrc": ["http://placehold.it/540x360/FA6900/ffffff"]},
+      {"imgSrc": ["http://placehold.it/800x600/ECD078/ffffff"]},
+      {"imgSrc": ["http://placehold.it/400x120/D95B43/ffffff"]},
+      {"imgSrc": ["http://placehold.it/300x300/C02942/ffffff"]},
+      {"imgSrc": ["http://placehold.it/320x500/542437/ffffff"]},
+      {"imgSrc": ["http://placehold.it/450x300/53777A/ffffff"]}
     ]
   };
   
@@ -68,9 +68,11 @@ angular.module( 'rssify.home', [
     collage();
   };
 
-  angular.element(document).ready(function () {
+  $document.ready(function () {
     $http.get('http://pipes.yahoo.com/pipes/pipe.run?_id=7a9eb77e86d1e749f042ea8892aa6b79&_render=json&url=http://qz.com/feed').success(function(data){
-      
+
+      var items = [];      
+
       //Get image for each item
       $.each( data.value.items, function(key, item) {
 
@@ -82,10 +84,15 @@ angular.module( 'rssify.home', [
         // console.log(item);
         if (item["media:thumbnail"]) {
           _item.imgSrc.push(item["media:thumbnail"].url);
-          $scope.data.items.push(_item);
+          items.push(_item);
         }
 
       });
+  
+      // Push all items at once
+      // $scope.data.items = items;
+
+      collage();
     });
   });
 
@@ -94,13 +101,12 @@ angular.module( 'rssify.home', [
     // collage();
   });
 
-  // window.onresize = function(event) {
-  //   collage();
-  // };
+  window.onresize = function(event) {
+    collage();
+  };
 
   function collage(){
     console.log("collage running...");
-    console.log($('.Collage'));
     $('.Collage').removeWhitespace().collagePlus(
         {
             'fadeSpeed'     : 2000,
