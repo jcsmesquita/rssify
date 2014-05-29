@@ -1,17 +1,8 @@
-<div class="row" ng-repeat="group in data.items">
-  <div class="col-md-6 padded" ng-repeat="item in group | limitTo:data.groupSize">
-    <div style="position:relative">
-      <!-- Media instance of array -->
-      <img ng-if="instanceOfArray(item['media:content']) && isDefined(item['media:content'])" src="{{media.url}}" class="img-responsive" ng-repeat="media in item['media:content'] | limitTo:1"/>
-
-      <!-- Media not instance of array -->
-      <img ng-if="!instanceOfArray(item['media:content']) && isDefined(item['media:content'])" src="{{item['media:content'].url}}" class="img-responsive"/>
-      
-      <!-- Media not defined -->
-      <img ng-if="!isDefined(item['media:content'])" ph-img="640x360" class="img-responsive"/>
-
-      <div class="cap">{{item.title}}</div>
-    </div>
+<button ng-click="test()">RUN</button>
+<div class="Collage">
+  <div data-caption="{{item.caption}}" ng-repeat="item in data.items" collage>
+    <a>
+      <img src="{{item.imgSrc[0]}}"/>
+    </a>
   </div>
-    <!-- <div ng-bind="item}} -->
 </div>

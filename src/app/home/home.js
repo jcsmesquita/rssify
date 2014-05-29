@@ -12,9 +12,10 @@
  * The dependencies block here is also where component dependencies should be
  * specified, as shown below.
  */
-angular.module( 'ngBoilerplate.home', [
+angular.module( 'rssify.home', [
   'ui.router',
-  'plusOne'
+  'plusOne',
+  'rssify.home.directives'
 ])
 
 /**
@@ -43,50 +44,126 @@ angular.module( 'ngBoilerplate.home', [
   $scope.data = {
     "groupSize": 2,
     "rssFeed": null,
-    "items": []
+    "items": [
+      // {"imgSrc": ['http://placehold.it/350x150/69D2E7/ffffff']},
+      // {"imgSrc": ['http://placehold.it/472x500/F38630/ffffff']},
+      // {"imgSrc": ['http://placehold.it/540x360/FA6900/ffffff']},
+      // {"imgSrc": ["http://placehold.it/350x150/69D2E7/ffffff"]},
+      // {"imgSrc": ["http://placehold.it/320x180/A7DBD8/ffffff"]},
+      // {"imgSrc": ["http://placehold.it/320x300/E0E4CC/ffffff"]},
+      // {"imgSrc": ["http://placehold.it/472x500/F38630/ffffff"]},
+      // {"imgSrc": ["http://placehold.it/540x360/FA6900/ffffff"]},
+      // {"imgSrc": ["http://placehold.it/800x600/ECD078/ffffff"]},
+      // {"imgSrc": ["http://placehold.it/400x120/D95B43/ffffff"]},
+      // {"imgSrc": ["http://placehold.it/300x300/C02942/ffffff"]},
+      // {"imgSrc": ["http://placehold.it/320x500/542437/ffffff"]},
+      // {"imgSrc": ["http://placehold.it/450x300/53777A/ffffff"]}
+    ]
+  };
+  
+  
+
+  $scope.test = function(){
+    console.log("RUN Clicked...");
+    collage();
   };
 
-  $http.get('http://pipes.yahoo.com/pipes/pipe.run?_id=7a9eb77e86d1e749f042ea8892aa6b79&_render=json&url=http://qz.com/feed').success(function(data){
-    $scope.data.rssFeed = data;
-
-    var group = [];
-    // Parse the items into groups (number of items per row)
-    for (var i = 0; i < data.count; i++) {
-
-      if(i % $scope.data.groupSize === 0){
+  angular.element(document).ready(function () {
+    $http.get('http://pipes.yahoo.com/pipes/pipe.run?_id=7a9eb77e86d1e749f042ea8892aa6b79&_render=json&url=http://qz.com/feed').success(function(data){
       
-        // Push group and clear
-        $scope.data.items.push(group);
-        group = [];
-      
-      }
-      group.push(data.value.items[i]);
-    }
+      //Get image for each item
+      $.each( data.value.items, function(key, item) {
 
-    // console.log($scope.data.items);
+        var _item = {
+          "imgSrc": [],
+          "caption": item.title
+        };
+
+        // console.log(item);
+        if (item["media:thumbnail"]) {
+          _item.imgSrc.push(item["media:thumbnail"].url);
+          $scope.data.items.push(_item);
+        }
+
+      });
+    });
   });
 
-  // This can be included in the parsing method later, but at the moment it's a check if media:content is an array or single object.
-  $scope.instanceOfArray = function(value){
-    if(value instanceof Array) {
-      return true;
-    }
-    else {
-      return false;
-    }
-  };
+  $scope.$on('ngRepeatFinished', function(mass) {
+    console.log("collage captured");
+    // collage();
+  });
 
-  $scope.isDefined = function(value){
-    if(typeof value != "undefined") {
-      return true;
-    }
-    else {
-      return false;
-    }
-  };
+  // window.onresize = function(event) {
+  //   collage();
+  // };
 
-  $scope.expandCaption = function($event){
-    console.log($event.target);
-  };
+  function collage(){
+    console.log("collage running...");
+    console.log($('.Collage'));
+    $('.Collage').removeWhitespace().collagePlus(
+        {
+            'fadeSpeed'     : 2000,
+            'targetHeight'  : 250,
+            'effect'        : 'effect-3',
+            'direction'     : 'vertical'
+        }
+    ).collageCaption();
+  }
+
+
+  function parseFeed(data){
+
+
+  }
+  //   console.log(response);
+  //   var vuffer = eval('(' + response + ')');
+  //   //console.log("items" +response.value.items);
+  //   console.log(vuffer.value.items);
+
+  //   $.each( vuffer.value.items, function(key, value)
+  //     {
+  //       console.log(key + " " + value);
+  //       console.log("Title "+ value.title);
+
+  //       html_buf += "<div data-caption=\"" + value.title + "\">";
+  //       html_buf += "<a href=\"" + value.link + "\" target=\"_blank\">";
+
+        // if (value["media:thumbnail"])
+        // {
+        //   console.log("Image " + value["media:thumbnail"].url);
+        //   html_buf += "<img src=\"" + value["media:thumbnail"].url + "\" /></a>"; 
+        // }
+        // else if (value["media:content"])
+        // {
+        
+        //   //TODO: Add parsing for images on description
+        //   //var re = /<img[^>]+src="?([^"\s]+)"?\s*\/>/g;
+        //   //console.log(value.description);
+        //   //console.log(re.exec(value.description));
+        //   html_buf += "<img src=\"" + value["media:content"][0].url + "\"/>";
+        // }
+        // else
+        // {
+        //   console.log("No images of the above. Time for a regex");
+        //   //console.log(value.description);
+        //   var regex = /<img.*?src="(.*?)"/;
+        //   var src = regex.exec(value.description)[1];
+        //   html_buf += "<img src=\"" + src + "\"/>";
+
+        // }
+  //       //html_buf += "<div class='caption'>"+ value.title;
+  //       html_buf += "</a></div>";
+        
+  //     }
+  //   );
+
+  //   document.getElementById("result").innerHTML=html_buf;
+  //   collage();
+  //   $('.Collage').collageCaption();
+
+  //   //$('#result').justifiedGallery();
+  // }
+
 });
 
