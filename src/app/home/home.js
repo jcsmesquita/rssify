@@ -14,7 +14,8 @@
  */
 angular.module( 'rssify.home', [
   'ui.router',
-  'plusOne'
+  'plusOne',
+  'akoenig.deckgrid'
 ])
 
 /**
@@ -44,19 +45,19 @@ angular.module( 'rssify.home', [
     "groupSize": 2,
     "rssFeed": null,
     "items": [
-      // {"imgSrc": ['http://placehold.it/350x150/69D2E7/ffffff']},
-      // {"imgSrc": ['http://placehold.it/472x500/F38630/ffffff']},
-      // {"imgSrc": ['http://placehold.it/540x360/FA6900/ffffff']},
-      // {"imgSrc": ["http://placehold.it/350x150/69D2E7/ffffff"]},
-      // {"imgSrc": ["http://placehold.it/320x180/A7DBD8/ffffff"]},
-      // {"imgSrc": ["http://placehold.it/320x300/E0E4CC/ffffff"]},
-      // {"imgSrc": ["http://placehold.it/472x500/F38630/ffffff"]},
-      // {"imgSrc": ["http://placehold.it/540x360/FA6900/ffffff"]},
-      // {"imgSrc": ["http://placehold.it/800x600/ECD078/ffffff"]},
-      // {"imgSrc": ["http://placehold.it/400x120/D95B43/ffffff"]},
-      // {"imgSrc": ["http://placehold.it/300x300/C02942/ffffff"]},
-      // {"imgSrc": ["http://placehold.it/320x500/542437/ffffff"]},
-      // {"imgSrc": ["http://placehold.it/450x300/53777A/ffffff"]}
+      // {"title": "Joao", "src": ['http://placehold.it/350x150/69D2E7/ffffff']},
+      // {"title": "Joao", "src": ['http://placehold.it/472x500/F38630/ffffff']},
+      // {"title": "Joao", "src": ['http://placehold.it/540x360/FA6900/ffffff']},
+      // {"title": "Joao", "src": ["http://placehold.it/350x150/69D2E7/ffffff"]},
+      // {"title": "Joao", "src": ["http://placehold.it/320x180/A7DBD8/ffffff"]},
+      // {"title": "Joao", "src": ["http://placehold.it/320x300/E0E4CC/ffffff"]},
+      // {"title": "Joao", "src": ["http://placehold.it/472x500/F38630/ffffff"]},
+      // {"title": "Joao", "src": ["http://placehold.it/540x360/FA6900/ffffff"]},
+      // {"title": "Joao", "src": ["http://placehold.it/800x600/ECD078/ffffff"]},
+      // {"title": "Joao", "src": ["http://placehold.it/400x120/D95B43/ffffff"]},
+      // {"title": "Joao", "src": ["http://placehold.it/300x300/C02942/ffffff"]},
+      // {"title": "Joao", "src": ["http://placehold.it/320x500/542437/ffffff"]},
+      // {"title": "Joao", "src": ["http://placehold.it/450x300/53777A/ffffff"]}
     ]
   };
 
@@ -65,98 +66,19 @@ angular.module( 'rssify.home', [
 
       var items = [];      
 
-      //Get image for each item
-      $.each( data.value.items, function(key, item) {
-
+      angular.forEach(data.value.items, function(item, key){
         var _item = {
-          "imgSrc": [],
+          "src": [],
           "caption": item.title
         };
 
         // console.log(item);
         if (item["media:thumbnail"]) {
-          _item.imgSrc.push(item["media:thumbnail"].url);
+          _item.src.push(item["media:thumbnail"].url);
           $scope.data.items.push(_item);
         }
-
       });
-  
-      // Apply the scope otherwise collage will go tits up  
-      $scope.$apply();
-
-      collage();
     });
   });
-
-  window.onresize = function(event) {
-    collage();
-  };
-
-  function collage(){
-    console.log("collage running...");
-    $('.Collage').removeWhitespace().collagePlus(
-        {
-            'fadeSpeed'     : 2000,
-            'targetHeight'  : 250,
-            'effect'        : 'effect-3',
-            'direction'     : 'vertical'
-        }
-    ).collageCaption();
-  }
-
-
-  function parseFeed(data){
-
-
-  }
-  //   console.log(response);
-  //   var vuffer = eval('(' + response + ')');
-  //   //console.log("items" +response.value.items);
-  //   console.log(vuffer.value.items);
-
-  //   $.each( vuffer.value.items, function(key, value)
-  //     {
-  //       console.log(key + " " + value);
-  //       console.log("Title "+ value.title);
-
-  //       html_buf += "<div data-caption=\"" + value.title + "\">";
-  //       html_buf += "<a href=\"" + value.link + "\" target=\"_blank\">";
-
-        // if (value["media:thumbnail"])
-        // {
-        //   console.log("Image " + value["media:thumbnail"].url);
-        //   html_buf += "<img src=\"" + value["media:thumbnail"].url + "\" /></a>"; 
-        // }
-        // else if (value["media:content"])
-        // {
-        
-        //   //TODO: Add parsing for images on description
-        //   //var re = /<img[^>]+src="?([^"\s]+)"?\s*\/>/g;
-        //   //console.log(value.description);
-        //   //console.log(re.exec(value.description));
-        //   html_buf += "<img src=\"" + value["media:content"][0].url + "\"/>";
-        // }
-        // else
-        // {
-        //   console.log("No images of the above. Time for a regex");
-        //   //console.log(value.description);
-        //   var regex = /<img.*?src="(.*?)"/;
-        //   var src = regex.exec(value.description)[1];
-        //   html_buf += "<img src=\"" + src + "\"/>";
-
-        // }
-  //       //html_buf += "<div class='caption'>"+ value.title;
-  //       html_buf += "</a></div>";
-        
-  //     }
-  //   );
-
-  //   document.getElementById("result").innerHTML=html_buf;
-  //   collage();
-  //   $('.Collage').collageCaption();
-
-  //   //$('#result').justifiedGallery();
-  // }
-
 });
 

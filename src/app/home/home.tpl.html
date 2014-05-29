@@ -1,7 +1,5 @@
-<div class="Collage">
-  <div data-caption="{{item.caption}}" ng-repeat="item in data.items" collage>
-    <a>
-      <img src="{{item.imgSrc[0]}}"/>
-    </a>
-  </div>
+<div deckgrid class="deckgrid" source="data.items">
+    <div class="a-card">
+        <img src="" data-ng-src="{{card.src[0]}}"/>
+    </div>
 </div>
