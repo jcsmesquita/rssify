@@ -84,5 +84,9 @@ angular.module( 'ngBoilerplate.home', [
       return false;
     }
   };
+
+  $scope.expandCaption = function($event){
+    console.log($event.target);
+  };
 });
 

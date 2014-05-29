@@ -1,6 +1,6 @@
 <div class="row" ng-repeat="group in data.items">
-  <div class="col-md-6" ng-repeat="item in group | limitTo:data.groupSize">
-    <a href="#about">
+  <div class="col-md-6 padded" ng-repeat="item in group | limitTo:data.groupSize">
+    <div style="position:relative">
       <!-- Media instance of array -->
       <img ng-if="instanceOfArray(item['media:content']) && isDefined(item['media:content'])" src="{{media.url}}" class="img-responsive" ng-repeat="media in item['media:content'] | limitTo:1"/>
 
@@ -10,8 +10,8 @@
       <!-- Media not defined -->
       <img ng-if="!isDefined(item['media:content'])" ph-img="640x360" class="img-responsive"/>
 
-      <p class="bg-title">{{item.title}}</p>
-    </a>
+      <div class="cap">{{item.title}}</div>
+    </div>
   </div>
     <!-- <div ng-bind="item}} -->
 </div>
