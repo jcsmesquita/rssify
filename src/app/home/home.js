@@ -14,8 +14,7 @@
  */
 angular.module( 'rssify.home', [
   'ui.router',
-  'plusOne',
-  'rssify.home.directives'
+  'plusOne'
 ])
 
 /**
@@ -45,27 +44,20 @@ angular.module( 'rssify.home', [
     "groupSize": 2,
     "rssFeed": null,
     "items": [
-      {"imgSrc": ['http://placehold.it/350x150/69D2E7/ffffff']},
-      {"imgSrc": ['http://placehold.it/472x500/F38630/ffffff']},
-      {"imgSrc": ['http://placehold.it/540x360/FA6900/ffffff']},
-      {"imgSrc": ["http://placehold.it/350x150/69D2E7/ffffff"]},
-      {"imgSrc": ["http://placehold.it/320x180/A7DBD8/ffffff"]},
-      {"imgSrc": ["http://placehold.it/320x300/E0E4CC/ffffff"]},
-      {"imgSrc": ["http://placehold.it/472x500/F38630/ffffff"]},
-      {"imgSrc": ["http://placehold.it/540x360/FA6900/ffffff"]},
-      {"imgSrc": ["http://placehold.it/800x600/ECD078/ffffff"]},
-      {"imgSrc": ["http://placehold.it/400x120/D95B43/ffffff"]},
-      {"imgSrc": ["http://placehold.it/300x300/C02942/ffffff"]},
-      {"imgSrc": ["http://placehold.it/320x500/542437/ffffff"]},
-      {"imgSrc": ["http://placehold.it/450x300/53777A/ffffff"]}
+      // {"imgSrc": ['http://placehold.it/350x150/69D2E7/ffffff']},
+      // {"imgSrc": ['http://placehold.it/472x500/F38630/ffffff']},
+      // {"imgSrc": ['http://placehold.it/540x360/FA6900/ffffff']},
+      // {"imgSrc": ["http://placehold.it/350x150/69D2E7/ffffff"]},
+      // {"imgSrc": ["http://placehold.it/320x180/A7DBD8/ffffff"]},
+      // {"imgSrc": ["http://placehold.it/320x300/E0E4CC/ffffff"]},
+      // {"imgSrc": ["http://placehold.it/472x500/F38630/ffffff"]},
+      // {"imgSrc": ["http://placehold.it/540x360/FA6900/ffffff"]},
+      // {"imgSrc": ["http://placehold.it/800x600/ECD078/ffffff"]},
+      // {"imgSrc": ["http://placehold.it/400x120/D95B43/ffffff"]},
+      // {"imgSrc": ["http://placehold.it/300x300/C02942/ffffff"]},
+      // {"imgSrc": ["http://placehold.it/320x500/542437/ffffff"]},
+      // {"imgSrc": ["http://placehold.it/450x300/53777A/ffffff"]}
     ]
-  };
-  
-  
-
-  $scope.test = function(){
-    console.log("RUN Clicked...");
-    collage();
   };
 
   $document.ready(function () {
@@ -84,21 +76,16 @@ angular.module( 'rssify.home', [
         // console.log(item);
         if (item["media:thumbnail"]) {
           _item.imgSrc.push(item["media:thumbnail"].url);
-          items.push(_item);
+          $scope.data.items.push(_item);
         }
 
       });
   
-      // Push all items at once
-      // $scope.data.items = items;
+      // Apply the scope otherwise collage will go tits up  
+      $scope.$apply();
 
       collage();
     });
-  });
-
-  $scope.$on('ngRepeatFinished', function(mass) {
-    console.log("collage captured");
-    // collage();
   });
 
   window.onresize = function(event) {
