@@ -15,6 +15,7 @@
 angular.module( 'rssify.home', [
   'ui.router',
   'plusOne',
+  'rssify.home.directives',
   'akoenig.deckgrid'
 ])
 
@@ -42,6 +43,7 @@ angular.module( 'rssify.home', [
 .controller( 'HomeCtrl', function HomeController( $scope, $http, $document ) {
 
   $scope.data = {
+    "test": [1,2,3],
     "groupSize": 2,
     "rssFeed": null,
     "items": [
@@ -61,9 +63,18 @@ angular.module( 'rssify.home', [
     ]
   };
 
-  $document.ready(function () {
-    $http.get('http://pipes.yahoo.com/pipes/pipe.run?_id=7a9eb77e86d1e749f042ea8892aa6b79&_render=json&url=http://qz.com/feed').success(function(data){
+  $scope.addTest = function(){
+    $scope.data.test.push(1);
+  };
 
+  $document.ready(function () {
+
+    var blazy = new Blazy({
+      src: "data-ng-src"
+    });
+
+    $http.get('http://pipes.yahoo.com/pipes/pipe.run?_id=7a9eb77e86d1e749f042ea8892aa6b79&_render=json&url=http://www.engadget.com/rss-hd.xml').success(function(data){
+      console.log(data);
       var items = [];      
 
       angular.forEach(data.value.items, function(item, key){
@@ -75,9 +86,15 @@ angular.module( 'rssify.home', [
         // console.log(item);
         if (item["media:thumbnail"]) {
           _item.src.push(item["media:thumbnail"].url);
-          $scope.data.items.push(_item);
+        } else {
+          var regex = /<img.*?src="(.*?)"/;
+          _item.src.push(regex.exec(item.description)[1]);  
         }
+        items.push(_item);
       });
+  
+      $scope.data.items = items;
+
     });
   });
 });

@@ -3,7 +3,8 @@ angular.module( 'rssify', [
   'templates-common',
   'rssify.home',
   'rssify.about',
-  'ui.router'
+  'ui.router',
+  'ngAnimate'
 ])
 
 .config( function myAppConfig ( $stateProvider, $urlRouterProvider ) {

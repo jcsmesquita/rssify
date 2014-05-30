@@ -2,14 +2,31 @@ angular.module('rssify.home.directives', [])
 
 
 // Collage Directive
-.directive('collage', function($timeout) {
+.directive('fadeIn', function() {
   return function(scope, element, attrs) {
-
-    // angular.element(element).css('color','blue');
-    if (scope.$last === true) {
-      $timeout(function () {
-        scope.$emit('ngRepeatFinished');
-      });
-    }
+	
   };
-});
+})
+
+.directive('imageloaded', [
+    function () {
+
+        'use strict';
+        return {
+            restrict: 'A',
+
+            link: function(scope, element, attrs) {
+				
+  
+                var cssClass = attrs.loadedclass;
+
+				console.log(cssClass);
+
+                element.bind('load', function (e) {
+					console.log(element);
+                    angular.element(element).addClass(cssClass);
+                });
+            }
+        };
+    }
+]);

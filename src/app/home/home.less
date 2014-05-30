@@ -59,3 +59,67 @@
 .deckgrid img {
   max-width: 100%;
 }
+
+.cap{
+  font-weight:bold;
+  padding:10px;
+  background-color: rgba(0,0,0,0.5);
+  
+  position: absolute;
+  bottom:0;
+  left:0;
+  width:100%;
+  
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color:white !important;
+}
+
+.a-card:hover .cap{
+  text-overflow: initial;
+  overflow: initial;
+  white-space: initial;
+}
+
+.a-card{
+  position:relative;
+}
+
+.reveal-animation .cap {
+    // add the vendor prefixed versions as well
+    transition: all 1s;
+}
+
+.reveal-animation:hover .cap {
+  background-color: rgba(0,0,0,1);
+}
+
+/* starting animations */
+.my-special-animation.ng-enter {
+  -webkit-animation: fadeInRight 0.5s;
+  animation: fadeInRight 0.5s;
+}
+
+/* destination animations */
+.my-special-animation.ng-enter.ng-enter-active {
+  -webkit-animation: fadeInRight 0.5s;
+  animation: fadeInRight 0.5s;
+}
+
+.photo{
+  background: #fff url(http://andrekoenig.info/angular-deckgrid/styles/images/spinner.gif) center 30px no-repeat;
+  border: 1px solid rgba(0, 0, 0, .15);
+  border-radius: 3px;
+  margin: 0 10px 10px 0;
+  position: relative;
+
+}
+
+.photo-wrapper{
+  min-height: 150px;
+}
+
+.photo-wrapper img{
+  opacity:0;
+}

@@ -1,5 +1,27 @@
+
+<div ng-init="on=true">
+  <button ng-click="on=!on;addTest()">Toggle On/Off</button>
+  <div class="my-special-animation" ng-if="on">
+    This content will enter and leave
+  </div>
+</div>
+
+<ul>
+	<li class="my-special-animation" ng-repeat="value in data.test track by $index">{{value}}</li>
+</ul>
+<!-- <img class="b-lazy"
+	 src="http://placehold.it/500x250&text=placeholder"
+	 data-ng-src="http://hss-prod.hss.aol.com/hss/storage/midas/e2c414fc0e595f5e36f93dc93e31d852/200129188/487600751.jpg" 
+	 alt="alt-text"/> -->
+
+
 <div deckgrid class="deckgrid" source="data.items">
-    <div class="a-card">
-        <img src="" data-ng-src="{{card.src[0]}}"/>
-    </div>
+	<div class="a-card photo">
+		<a>
+		    <div class="photo-wrapper">
+		        <img data-ng-src="{{card.src[0]}}" class="animation fadeIn"/>
+				<div class="cap">{{card.caption}}</div>
+		    </div>
+		</a>
+	</div>
 </div>

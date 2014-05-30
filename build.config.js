@@ -69,8 +69,11 @@ module.exports = {
       'vendor/angular-ui-router/release/angular-ui-router.js',
       'vendor/angular-ui-utils/modules/route/route.js',
       'vendor/angular-deckgrid/angular-deckgrid.js',
+      'vendor/angular-animate/angular-animate.min.js',
+      'vendor/blazy/blazy.min.js'
     ],
     css: [
+      'vendor/animate-css/animate.min.css'
     ],
     assets: [
     ]
